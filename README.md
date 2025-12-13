@@ -1,5 +1,109 @@
 # TopologicalQuantum
 
+A TypeScript implementation of quantum mechanics concepts, including Bell's inequality test for demonstrating quantum entanglement.
+
+## Features
+
+- ✅ **Bell Test Implementation**: Complete implementation of Bell's inequality and CHSH test
+- ✅ **Quantum State Representation**: Two-qubit quantum states with complex amplitudes
+- ✅ **Bell States**: All four maximally entangled Bell states
+- ✅ **Quantum Correlations**: Calculate quantum correlations for entangled states
+- ✅ **CHSH Inequality**: Demonstrate violation of local realism
+
+## Quick Start
+
+```bash
+# Install dependencies
+npm install
+
+# Run tests
+npm test
+
+# Run Bell test demonstration
+npm run demo
+```
+
+## Bell Test
+
+This repository implements Bell's inequality test, which proves that quantum mechanics cannot be explained by local hidden variable theories. See [BELLTEST.md](./BELLTEST.md) for detailed documentation.
+
+### Example Output
+
+```
+CHSH Inequality Test:
+  Theoretical S = 2.8284
+  Classical bound: S ≤ 2
+  Quantum maximum: S ≤ 2√2 ≈ 2.8284
+
+  ✓ VIOLATION DETECTED! S = 2.8284 > 2
+  This proves quantum entanglement and rules out local hidden variables!
+```
+
+## Usage Example
+
+```typescript
+import { BellTest, QuantumState } from 'topologicalquantum';
+
+// Create an entangled Bell state
+const bellState = QuantumState.createBellState('phi+');
+
+// Test Bell's inequality
+const angles = BellTest.getOptimalCHSHAngles();
+const chshValue = BellTest.calculateCHSH(bellState, angles);
+
+if (chshValue > 2) {
+  console.log('Bell inequality violated! Quantum entanglement confirmed!');
+}
+```
+
+## Documentation
+
+- [Bell Test Documentation](./BELLTEST.md) - Detailed explanation of the Bell test implementation
+- [Security Policy](./SECURITY.md) - Security guidelines
+
+## Scientific Background
+
+Bell's theorem is one of the most important results in quantum mechanics. It demonstrates that:
+1. Quantum entanglement is real
+2. Local hidden variable theories cannot explain quantum mechanics
+3. Nature is fundamentally non-local
+
+The 2022 Nobel Prize in Physics was awarded for experimental verification of these principles.
+
+## Project Structure
+
+```
+src/
+├── Complex.ts          # Complex number arithmetic
+├── QuantumState.ts     # Quantum state representation  
+├── BellTest.ts         # Bell inequality test implementation
+├── demo.ts             # Interactive demonstration
+└── __tests__/          # Comprehensive test suite
+```
+
+## Testing
+
+All quantum mechanics calculations are thoroughly tested:
+
+```bash
+npm test
+```
+
+Test coverage includes:
+- Complex number operations
+- Quantum state normalization
+- Bell state creation
+- Correlation calculations
+- CHSH inequality verification
+
+## License
+
+ISC
+
+---
+
+## Additional Content (from original README)
+
 ## ChatGPT
 
 以下以 **繁體中文** 回答，並附上 **可靠來源的引用**（非杜撰、非亂編）。
