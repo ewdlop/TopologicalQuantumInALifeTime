@@ -57,18 +57,11 @@ export class BellTest {
       // Measure first qubit
       if (outcome === 1) {
         // Probability for measuring +1 (in rotated basis)
-        const amp00 = state.amplitudes[0];
-        const amp01 = state.amplitudes[1];
-        const amp10 = state.amplitudes[2];
-        const amp11 = state.amplitudes[3];
-
-        if (!amp00 || !amp01 || !amp10 || !amp11) {
-          throw new Error('Invalid state amplitudes');
-        }
+        this.validateAmplitudes(state);
 
         // Project onto |+⟩ basis for first qubit
-        const projAmp0 = amp00.scale(cos).add(amp10.scale(sin));
-        const projAmp1 = amp01.scale(cos).add(amp11.scale(sin));
+        const projAmp0 = state.amplitudes[0]!.scale(cos).add(state.amplitudes[2]!.scale(sin));
+        const projAmp1 = state.amplitudes[1]!.scale(cos).add(state.amplitudes[3]!.scale(sin));
         
         probability = projAmp0.magnitudeSquared() + projAmp1.magnitudeSquared();
       } else {
@@ -78,18 +71,11 @@ export class BellTest {
     } else {
       // Measure second qubit
       if (outcome === 1) {
-        const amp00 = state.amplitudes[0];
-        const amp01 = state.amplitudes[1];
-        const amp10 = state.amplitudes[2];
-        const amp11 = state.amplitudes[3];
-
-        if (!amp00 || !amp01 || !amp10 || !amp11) {
-          throw new Error('Invalid state amplitudes');
-        }
+        this.validateAmplitudes(state);
 
         // Project onto |+⟩ basis for second qubit
-        const projAmp0 = amp00.scale(cos).add(amp01.scale(sin));
-        const projAmp1 = amp10.scale(cos).add(amp11.scale(sin));
+        const projAmp0 = state.amplitudes[0]!.scale(cos).add(state.amplitudes[1]!.scale(sin));
+        const projAmp1 = state.amplitudes[2]!.scale(cos).add(state.amplitudes[3]!.scale(sin));
         
         probability = projAmp0.magnitudeSquared() + projAmp1.magnitudeSquared();
       } else {
@@ -98,6 +84,15 @@ export class BellTest {
     }
 
     return probability;
+  }
+
+  /**
+   * Validate that all state amplitudes are defined
+   */
+  private static validateAmplitudes(state: QuantumState): void {
+    if (!state.amplitudes[0] || !state.amplitudes[1] || !state.amplitudes[2] || !state.amplitudes[3]) {
+      throw new Error('Invalid state amplitudes');
+    }
   }
 
   /**
@@ -116,39 +111,32 @@ export class BellTest {
     // Calculate correlation using the quantum state amplitudes
     // E(a,b) = sum over all basis states of: amplitude * measurement_result_A * measurement_result_B
     
-    const amp00 = state.amplitudes[0];
-    const amp01 = state.amplitudes[1];
-    const amp10 = state.amplitudes[2];
-    const amp11 = state.amplitudes[3];
-    
-    if (!amp00 || !amp01 || !amp10 || !amp11) {
-      throw new Error('Invalid state amplitudes');
-    }
+    this.validateAmplitudes(state);
 
     // For spin measurements in rotated bases:
-    // Expectation value E(a,b) for Bell state |Φ+⟩ is cos(2(a-b))
+    // Expectation value E(a,b) for Bell state is cos(a-b)
     // This is the theoretical result for maximally entangled states
     
     // Check if this is a Bell state (|Φ+⟩ or similar)
     const isBellStatePhi = 
-      Math.abs(amp00.magnitudeSquared() - 0.5) < 1e-6 &&
-      Math.abs(amp11.magnitudeSquared() - 0.5) < 1e-6 &&
-      Math.abs(amp01.magnitudeSquared()) < 1e-6 &&
-      Math.abs(amp10.magnitudeSquared()) < 1e-6;
+      Math.abs(state.amplitudes[0]!.magnitudeSquared() - 0.5) < 1e-6 &&
+      Math.abs(state.amplitudes[3]!.magnitudeSquared() - 0.5) < 1e-6 &&
+      Math.abs(state.amplitudes[1]!.magnitudeSquared()) < 1e-6 &&
+      Math.abs(state.amplitudes[2]!.magnitudeSquared()) < 1e-6;
     
     const isBellStatePsi = 
-      Math.abs(amp01.magnitudeSquared() - 0.5) < 1e-6 &&
-      Math.abs(amp10.magnitudeSquared() - 0.5) < 1e-6 &&
-      Math.abs(amp00.magnitudeSquared()) < 1e-6 &&
-      Math.abs(amp11.magnitudeSquared()) < 1e-6;
+      Math.abs(state.amplitudes[1]!.magnitudeSquared() - 0.5) < 1e-6 &&
+      Math.abs(state.amplitudes[2]!.magnitudeSquared() - 0.5) < 1e-6 &&
+      Math.abs(state.amplitudes[0]!.magnitudeSquared()) < 1e-6 &&
+      Math.abs(state.amplitudes[3]!.magnitudeSquared()) < 1e-6;
 
     if (isBellStatePhi) {
       // For |Φ+⟩ or |Φ-⟩: E(a,b) = ±cos(a-b)
-      const sign = amp11.real >= 0 ? 1 : -1; // Φ+ vs Φ-
+      const sign = state.amplitudes[3]!.real >= 0 ? 1 : -1; // Φ+ vs Φ-
       return sign * Math.cos(angleA - angleB);
     } else if (isBellStatePsi) {
       // For |Ψ+⟩ or |Ψ-⟩: E(a,b) = ±cos(a-b) with different phase
-      const sign = amp10.real >= 0 ? 1 : -1; // Ψ+ vs Ψ-
+      const sign = state.amplitudes[2]!.real >= 0 ? 1 : -1; // Ψ+ vs Ψ-
       return sign * Math.cos(angleA - angleB);
     }
     
