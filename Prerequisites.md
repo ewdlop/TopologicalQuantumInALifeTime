@@ -214,7 +214,7 @@ The **computational trilogy** (see [nLab](https://ncatlab.org/nlab/show/computat
 
 #### Key Correspondences
 | Logic | Type Theory | Category Theory |
-|-------|-------------|-----------------|
+| ----- | ----------- | --------------- |
 | Proposition A | Type A | Object A |
 | Proof of A | Term of type A | Morphism to A |
 | A ∧ B | Product type A × B | Product A × B |
@@ -347,7 +347,7 @@ Topological quantum computing emerges from the study of topological phases of ma
 - [Anyon](https://ncatlab.org/nlab/show/anyon)
 
 #### Other Online Materials
-- John Baez's blog and lecture notes: http://math.ucr.edu/home/baez/
+- John Baez's blog and lecture notes: https://math.ucr.edu/home/baez/
 - Homotopy Type Theory book: https://homotopytypetheory.org/book/
 - TQFT lecture notes by Kevin Walker and various schools
 
