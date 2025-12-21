@@ -1,5 +1,17 @@
 # TopologicalQuantum
 
+```scss
+          [ Physical Mathematics / Quantum Group ]
+                     (structure)
+
+     [ QFT ] ------------------------------ [ Quantum Information ]
+   (dynamics)                               (operations)
+
+                 [ Quantum Foundations ]
+                    (logic & meaning)
+
+```
+
 ## ChatGPT
 
 以下以 **繁體中文** 回答，並附上 **可靠來源的引用**（非杜撰、非亂編）。
