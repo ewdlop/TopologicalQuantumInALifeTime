@@ -1,5 +1,20 @@
 # TopologicalQuantum
 
+## 📚 Prerequisites
+
+For a comprehensive overview of the mathematical and theoretical foundations required to understand Topological Quantum Computing, please see:
+
+**[Prerequisites for Topological Quantum Computing](./Prerequisites.md)**
+
+This document covers:
+- Topological Quantum Field Theory (TQFT)
+- Type Theory and the Curry-Howard correspondence
+- Category Theory and Monoidal Categories
+- Logic and Computation (including the Computational Trilogy)
+- Condensed Matter Physics and Anyonic Systems
+- Recommended learning paths and references
+
+---
 ```scss
           [ Physical Mathematics / Quantum Group ]
                      (structure)
