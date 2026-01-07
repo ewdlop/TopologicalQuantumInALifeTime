@@ -1,0 +1,6 @@
+[submodule "UniMath"]
+	path = UniMath
+	url = https://github.com/UniMath/UniMath
+[submodule "nlab-content-haml"]
+	path = nlab-content-haml
+	url = https://github.com/TestOrganzationName/nlab-content-haml

@@ -15,6 +15,17 @@ This document covers:
 - Recommended learning paths and references
 
 ---
+```scss
+          [ Physical Mathematics / Quantum Group ]
+                     (structure)
+
+     [ QFT ] ------------------------------ [ Quantum Information ]
+   (dynamics)                               (operations)
+
+                 [ Quantum Foundations ]
+                    (logic & meaning)
+
+```
 
 ## ChatGPT
 
